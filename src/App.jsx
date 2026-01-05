@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import CardList from './Components/CardList'
 
-
-const fetchUsers = async () => {
-const response = await fetch("https://jsonplaceholder.typicode.com/users")
-const data = await response.json();
-if(!response.ok) throw new Error("There was an issue fetching movies.")
-return data;
-
-}
 
 function App() {
   
@@ -17,7 +10,8 @@ function App() {
   useEffect(()=>{
     const load = async () => {
       try {
-        const data = await fetchUsers() 
+        const response = await fetch("https://jsonplaceholder.typicode.com/users")
+        const data = await response.json() 
         setUsers(data)
       } catch (err) {
         console.log(err)
@@ -30,15 +24,7 @@ function App() {
   
   return (
     <>
-    <ul>
-      {users.map((user)=>(
-        <li key = {user.id}>
-          <h1>{user.name}</h1>
-          <p>{user.email}</p>
-        </li>
-      ))}
-    </ul>
-
+      <CardList users = {users}/>
     </>
   )
 }
