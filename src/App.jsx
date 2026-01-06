@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import CardList from './Components/CardList'
+import SearchBox from './Components/SearchBox'
 
 
 function App() {
   
   const [users, setUsers] = useState([])
+  const [searchField, setSearchField] = useState("")
+
+  const handleSearchChange = (e) => {
+    setSearchField(e.target.value)
+  }
 
   useEffect(()=>{
     const load = async () => {
@@ -21,10 +27,12 @@ function App() {
     
   },[])
   
-  
+  let filteredUsers = users.filter((user) => user.name.toLowerCase().includes(searchField.toLowerCase()))
+
   return (
     <>
-      <CardList users = {users}/>
+      <SearchBox onSearchChange = {handleSearchChange} searchField={searchField}/>
+      <CardList users = {filteredUsers}/>
     </>
   )
 }

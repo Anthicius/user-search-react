@@ -1,10 +1,11 @@
 import React from 'react'
+import Card from './Card'
 
 const CardList = (props) => {
   return (
     <ul>
     {props.users.map((user)=>(
-        <li id={user.id}>{user.name}</li>
+        <Card userData={user} key = {user.id}/>
     ))}
     </ul>
   )
